@@ -415,6 +415,7 @@ class MQTTClient:
                     subprotocols=['mqtt'],
                     loop=self._loop,
                     extra_headers=self.extra_headers,
+                    ping_timeout=None,
                     **kwargs)
                 reader = WebSocketsReader(websocket)
                 writer = WebSocketsWriter(websocket)

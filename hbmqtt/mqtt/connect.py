@@ -22,7 +22,7 @@ class ConnectVariableHeader(MQTTVariableHeader):
     CLEAN_SESSION_FLAG = 0x02
     RESERVED_FLAG = 0x01
 
-    def __init__(self, connect_flags=0x00, keep_alive=0, proto_name='MQTT', proto_level=0x04):
+    def __init__(self, connect_flags=0x00, keep_alive=0, proto_name='MQIsdp', proto_level=0x03):
         super().__init__()
         self.proto_name = proto_name
         self.proto_level = proto_level
