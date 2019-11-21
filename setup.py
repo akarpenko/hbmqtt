@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 from hbmqtt.version import get_version
 
 setup(
-    name="hbmqtt",
+    name="tulir-hbmqtt",
     version=get_version(),
     description="MQTT client/broker using Python 3.4 asyncio library",
     author="Nicolas Jouanin",
