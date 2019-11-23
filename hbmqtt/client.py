@@ -236,7 +236,7 @@ class MQTTClient:
         self._disconnect_task = asyncio.ensure_future(self.handle_connection_close(), loop=self._loop)
         if self.post_connect:
             try:
-                await self.post_connect(self)
+                yield from self.post_connect(self)
             except BaseException as e:
                 self.logger.warning("Post-connect handler failed: %r" % e)
         return return_code
