@@ -109,6 +109,7 @@ class MQTTClient:
         self._connected_state = asyncio.Event(loop=self._loop)
         self._no_more_connections = asyncio.Event(loop=self._loop)
         self.extra_headers = {}
+        self.post_connect = None
 
         # Init plugins manager
         context = ClientContext()
@@ -233,6 +234,11 @@ class MQTTClient:
     def _do_connect(self):
         return_code = yield from self._connect_coro()
         self._disconnect_task = asyncio.ensure_future(self.handle_connection_close(), loop=self._loop)
+        if self.post_connect:
+            try:
+                await self.post_connect(self)
+            except BaseException as e:
+                self.logger.warning("Post-connect handler failed: %r" % e)
         return return_code
 
     @mqtt_connected
