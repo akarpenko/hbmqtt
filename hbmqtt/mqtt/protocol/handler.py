@@ -451,6 +451,7 @@ class ProtocolHandler:
             yield from self.plugins_manager.fire_event(EVENT_MQTT_PACKET_SENT, packet=packet, session=self.session)
         except ConnectionResetError as cre:
             yield from self.handle_connection_closed()
+        except asyncio.CancelledError:
             raise
         except BaseException as e:
             self.logger.warning("Unhandled exception: %s" % e)
