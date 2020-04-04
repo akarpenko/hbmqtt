@@ -364,6 +364,7 @@ class MQTTClient:
         else:
             #timeout occured before message received
             deliver_task.cancel()
+            self.client_tasks.pop()
             raise asyncio.TimeoutError
 
     @asyncio.coroutine
