@@ -201,7 +201,10 @@ class ConnectPayload(MQTTPayload):
     def to_bytes(self, fixed_header: MQTTFixedHeader, variable_header: ConnectVariableHeader):
         out = bytearray()
         # Client identifier
-        out.extend(encode_string(self.client_id))
+        if isinstance(self.client_id, (bytes, bytearray)):
+            out.extend(self.client_id)
+        else:
+            out.extend(encode_string(self.client_id))
         # Will topic / message
         if variable_header.will_flag:
             out.extend(encode_string(self.will_topic))
